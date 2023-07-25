@@ -38,7 +38,7 @@ public class AlarmSirenControls : MonoBehaviour
         enabled = false;
     }
 
-    void Update()
+    private void Update()
     {
         _audio.volume = Mathf.MoveTowards(_startingVolume, _targetVolume, _volumeChangeNormalizedTime);
         _volumeChangeDuration += Time.deltaTime;
