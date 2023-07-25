@@ -46,10 +46,11 @@ public class AlarmSirenControls : MonoBehaviour
 
     private IEnumerator ChangeVolumeOverTime(float startingVolume, float targetVolume)
     {
-        Debug.Log("CoroutineStarted");
-        
         float volumeChangeNormalizedTime = 0;
         float volumeChangeDuration = 0;
+        
+        if (_audio.isPlaying == false)
+            _audio.Play();
         
         while (_audio.volume != targetVolume)
         {
@@ -59,6 +60,9 @@ public class AlarmSirenControls : MonoBehaviour
             
             yield return null;
         }
+        
+        if (_audio.volume <= _minVolume)
+            _audio.Stop();
     }
     
     
