@@ -33,18 +33,14 @@ public class AlarmSirenControls : MonoBehaviour
         enabled = false;
     }
     
-    private void StopVolumeChangeCoroutine()
+    private void StartVolumeChangeCoroutine(float startingVolume, float targetVolume)
     {
         if (ChangeVolumeCoroutine != null)
         {
             StopCoroutine(ChangeVolumeCoroutine);
             ChangeVolumeCoroutine = null;
         }
-    }
-    
-    private void StartVolumeChangeCoroutine(float startingVolume, float targetVolume)
-    {
-        StopVolumeChangeCoroutine();
+        
         ChangeVolumeCoroutine = StartCoroutine(ChangeVolumeOverTime(startingVolume, targetVolume));
     }
 
@@ -57,8 +53,6 @@ public class AlarmSirenControls : MonoBehaviour
         
         while (_audio.volume != targetVolume)
         {
-            Debug.Log($"VOL: {_audio.volume} | _VolChangeDuration: {volumeChangeDuration} | S/T {startingVolume} / {targetVolume} | Norm: {volumeChangeNormalizedTime}");
-            
             _audio.volume = Mathf.MoveTowards(startingVolume, targetVolume, volumeChangeNormalizedTime);
             volumeChangeDuration += Time.deltaTime;
             volumeChangeNormalizedTime = volumeChangeDuration / _volumeChangeSpeed;
