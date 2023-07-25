@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private KeyCode _moveRight; 
     [SerializeField] private float _maxVelocity;
     [SerializeField] private float _movePower;
+    private KeyCode _fall = KeyCode.LeftShift;
 
     private Rigidbody2D _rigidbody;
 
@@ -24,6 +26,9 @@ public class PlayerControls : MonoBehaviour
         
         if (Input.GetKey(_moveRight))
             MoveRight();
+        
+        if (Input.GetKeyDown(_fall))
+            _rigidbody.freezeRotation = false;
     }
 
     private void MoveLeft()

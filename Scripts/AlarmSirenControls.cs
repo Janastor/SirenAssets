@@ -14,21 +14,16 @@ public class AlarmSirenControls : MonoBehaviour
     private float _volume;
     private float _volumeChangeDuration;
     private float _volumeChangeNormalizedTime;
+    private Coroutine ChangeVolumeCoroutine;
 
     public void Enable()
     {
-        enabled = true;
-        _volumeChangeDuration = 0;
-        _targetVolume = _maxVolume;
-        _startingVolume = _audio.volume;
+        StartVolumeChangeCoroutine(_audio.volume, _maxVolume);
     }
 
     public void Disable()
     {
-        enabled = true;
-        _targetVolume = _minVolume;
-        _startingVolume = _audio.volume;
-        _volumeChangeDuration = 0;
+        StartVolumeChangeCoroutine(_audio.volume, _minVolume);
     }
 
     private void Start()
@@ -37,11 +32,40 @@ public class AlarmSirenControls : MonoBehaviour
         _audio.volume = _minVolume;
         enabled = false;
     }
-
-    private void Update()
+    
+    private void StopVolumeChangeCoroutine()
     {
-        _audio.volume = Mathf.MoveTowards(_startingVolume, _targetVolume, _volumeChangeNormalizedTime);
-        _volumeChangeDuration += Time.deltaTime;
-        _volumeChangeNormalizedTime = _volumeChangeDuration / _volumeChangeSpeed;
+        if (ChangeVolumeCoroutine != null)
+        {
+            StopCoroutine(ChangeVolumeCoroutine);
+            ChangeVolumeCoroutine = null;
+        }
     }
+    
+    private void StartVolumeChangeCoroutine(float startingVolume, float targetVolume)
+    {
+        StopVolumeChangeCoroutine();
+        ChangeVolumeCoroutine = StartCoroutine(ChangeVolumeOverTime(startingVolume, targetVolume));
+    }
+
+    private IEnumerator ChangeVolumeOverTime(float startingVolume, float targetVolume)
+    {
+        Debug.Log("CoroutineStarted");
+        
+        float volumeChangeNormalizedTime = 0;
+        float volumeChangeDuration = 0;
+        
+        while (_audio.volume != targetVolume)
+        {
+            Debug.Log($"VOL: {_audio.volume} | _VolChangeDuration: {volumeChangeDuration} | S/T {startingVolume} / {targetVolume} | Norm: {volumeChangeNormalizedTime}");
+            
+            _audio.volume = Mathf.MoveTowards(startingVolume, targetVolume, volumeChangeNormalizedTime);
+            volumeChangeDuration += Time.deltaTime;
+            volumeChangeNormalizedTime = volumeChangeDuration / _volumeChangeSpeed;
+            
+            yield return null;
+        }
+    }
+    
+    
 }

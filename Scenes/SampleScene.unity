@@ -980,8 +980,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 659009013}
-        m_TargetAssemblyTypeName: SirenController, Assembly-CSharp
-        m_MethodName: EnableSiren
+        m_TargetAssemblyTypeName: AlarmSirenControls, Assembly-CSharp
+        m_MethodName: Enable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -995,8 +995,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 659009013}
-        m_TargetAssemblyTypeName: SirenController, Assembly-CSharp
-        m_MethodName: DisableSiren
+        m_TargetAssemblyTypeName: AlarmSirenControls, Assembly-CSharp
+        m_MethodName: Disable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
