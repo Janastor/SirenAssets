@@ -40,8 +40,7 @@ public class SirenController : MonoBehaviour
 
     void Update()
     {
-        _volume = Mathf.MoveTowards(_startingVolume, _targetVolume, _volumeChangeNormalizedTime);
-        _audio.volume = _volume;
+        _audio.volume = Mathf.MoveTowards(_startingVolume, _targetVolume, _volumeChangeNormalizedTime);
         _volumeChangeDuration += Time.deltaTime;
         _volumeChangeNormalizedTime = _volumeChangeDuration / _volumeChangeSpeed;
         Debug.Log(_audio.volume);
