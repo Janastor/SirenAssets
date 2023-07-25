@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SirenController : MonoBehaviour
+public class AlarmSirenControls : MonoBehaviour
 {
     [SerializeField] private float _volumeChangeSpeed;
     private AudioSource _audio;
@@ -15,7 +15,7 @@ public class SirenController : MonoBehaviour
     private float _volumeChangeDuration;
     private float _volumeChangeNormalizedTime;
 
-    public void EnableSiren()
+    public void Enable()
     {
         enabled = true;
         _volumeChangeDuration = 0;
@@ -23,7 +23,7 @@ public class SirenController : MonoBehaviour
         _startingVolume = _audio.volume;
     }
 
-    public void DisableSiren()
+    public void Disable()
     {
         enabled = true;
         _targetVolume = _minVolume;

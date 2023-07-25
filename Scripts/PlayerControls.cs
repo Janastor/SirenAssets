@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RigidbodyController : MonoBehaviour
+public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private KeyCode _moveLeft;
     [SerializeField] private KeyCode _moveRight; 
