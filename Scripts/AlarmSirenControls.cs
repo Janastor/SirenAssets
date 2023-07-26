@@ -3,18 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class AlarmSirenControls : MonoBehaviour
 {
+    
     [SerializeField] private float _volumeChangeSpeed;
+    [SerializeField] private float _minVolume;
+    [SerializeField] private float _maxVolume;
     private AudioSource _audio;
-    private float _startingVolume;
-    private float _targetVolume;
-    private float _minVolume = 0;
-    private float _maxVolume = 0.5f;
-    private float _volume;
-    private float _volumeChangeDuration;
-    private float _volumeChangeNormalizedTime;
-    private Coroutine ChangeVolumeCoroutine;
+    private Coroutine _changeVolumeCoroutine;
 
     public void Enable()
     {
@@ -35,13 +33,13 @@ public class AlarmSirenControls : MonoBehaviour
     
     private void StartVolumeChangeCoroutine(float startingVolume, float targetVolume)
     {
-        if (ChangeVolumeCoroutine != null)
+        if (_changeVolumeCoroutine != null)
         {
-            StopCoroutine(ChangeVolumeCoroutine);
-            ChangeVolumeCoroutine = null;
+            StopCoroutine(_changeVolumeCoroutine);
+            _changeVolumeCoroutine = null;
         }
         
-        ChangeVolumeCoroutine = StartCoroutine(ChangeVolumeOverTime(startingVolume, targetVolume));
+        _changeVolumeCoroutine = StartCoroutine(ChangeVolumeOverTime(startingVolume, targetVolume));
     }
 
     private IEnumerator ChangeVolumeOverTime(float startingVolume, float targetVolume)
