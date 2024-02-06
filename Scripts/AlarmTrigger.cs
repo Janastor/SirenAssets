@@ -11,13 +11,13 @@ public class AlarmTrigger : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent<Player>(out Player player))
             _houseEntered?.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent<Player>(out Player player))
             _houseLeft?.Invoke();
     }
 }
