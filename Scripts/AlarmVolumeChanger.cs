@@ -5,14 +5,22 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 
-public class AlarmSirenControls : MonoBehaviour
+public class AlarmVolumeChanger : MonoBehaviour
 {
     
     [SerializeField] private float _volumeChangeSpeed;
     [SerializeField] private float _minVolume;
     [SerializeField] private float _maxVolume;
+    
     private AudioSource _audio;
     private Coroutine _changeVolumeCoroutine;
+
+    private void Start()
+    {
+        _audio = GetComponent<AudioSource>();
+        _audio.volume = _minVolume;
+        enabled = false;
+    }
 
     public void Enable()
     {
@@ -24,13 +32,6 @@ public class AlarmSirenControls : MonoBehaviour
         StartVolumeChangeCoroutine(_audio.volume, _minVolume);
     }
 
-    private void Start()
-    {
-        _audio = GetComponent<AudioSource>();
-        _audio.volume = _minVolume;
-        enabled = false;
-    }
-    
     private void StartVolumeChangeCoroutine(float startingVolume, float targetVolume)
     {
         if (_changeVolumeCoroutine != null)

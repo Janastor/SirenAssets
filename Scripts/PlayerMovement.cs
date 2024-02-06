@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private KeyCode _moveLeft;
     [SerializeField] private KeyCode _moveRight; 
     [SerializeField] private float _maxVelocity;
     [SerializeField] private float _movePower;
+    
     private KeyCode _fall = KeyCode.LeftShift;
 
     private Rigidbody2D _rigidbody;
